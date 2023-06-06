@@ -27,7 +27,7 @@ export class Interactor implements Inport<Request, Response> {
 
             obj.validate()
 
-            await this.saveProduct.do(obj)
+            await this.saveProduct(obj)
 
             return {id: obj.id}
         } catch (err) {

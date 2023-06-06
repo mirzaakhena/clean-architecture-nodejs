@@ -16,7 +16,7 @@ export class Interactor implements Inport<Request, Response> {
     }
 
     async Execute(req: Request): Promise<Response> {
-        const [products, count] = await this.findAllProducts.do()
+        const [products, count] = await this.findAllProducts()
         return {data: products, count: count}
     }
 

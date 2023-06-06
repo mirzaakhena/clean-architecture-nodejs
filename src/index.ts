@@ -23,8 +23,8 @@ dataSource.initialize()
 
 const repo = dataSource.getRepository(Product)
 
-const saveProduct: SaveProduct = new SaveProductImpl(repo)
-const findAllProducts: FindAllProducts = new FindAllProductsImpl(repo)
+const saveProduct: SaveProduct = SaveProductImpl(repo)
+const findAllProducts: FindAllProducts = FindAllProductsImpl(repo)
 
 const ct = new Controller()
 
