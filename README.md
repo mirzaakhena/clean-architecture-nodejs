@@ -47,9 +47,9 @@ src
 ├── index.ts
 ├── model
 │   ├── entity
-│   │   └── product.ts
+│   │   └── impl_product.ts
 │   └── repository
-│       └── product.ts
+│       └── impl_product.ts
 ├── shared
 │   └── framework_helper.ts
 └── usecase

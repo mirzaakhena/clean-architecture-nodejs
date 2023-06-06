@@ -1,7 +1,8 @@
 import "reflect-metadata"
 import {runServer} from "./controller/controller";
 import {FindAllProducts, SaveProduct} from "./model/repository/product";
-import {FindAllProductsImpl, getDataSource, SaveProductImpl} from "./gateway/product";
+import {FindAllProductsImpl, SaveProductImpl} from "./gateway/impl_product";
+import {getDataSource} from "./gateway/gateway";
 import {Product} from "./model/entity/product";
 import {addProduct} from "./usecase/add_product";
 import {getAllProduct} from "./usecase/getall_product";
@@ -16,7 +17,7 @@ const findAllProducts: FindAllProducts = FindAllProductsImpl(repo)
 
 const router = express.Router()
 
-router.post("/products", handleAddProduct(addProduct(saveProduct)))
-router.get("/products", handleGetAllProduct(getAllProduct(findAllProducts)))
+router.post("/products", handleAddProduct(addProduct([saveProduct])))
+router.get("/products", handleGetAllProduct(getAllProduct([findAllProducts])))
 
 runServer(router)

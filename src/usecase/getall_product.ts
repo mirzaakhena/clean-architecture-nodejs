@@ -10,7 +10,12 @@ export interface Response {
     count: number
 }
 
-export const getAllProduct = (findAllProducts: FindAllProducts): Inport<Request, Response> => {
+type Outport = [FindAllProducts]
+
+export const getAllProduct = (outport: Outport): Inport<Request, Response> => {
+
+    const [findAllProducts] = outport
+
     return async (req: Request): Promise<Response> => {
         const [products, count] = await findAllProducts()
         return {data: products, count: count}
