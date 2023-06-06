@@ -1,15 +1,14 @@
-import {ControllerRegisterer, Inport} from "../shared/framework_helper";
+import {Inport} from "../shared/framework_helper";
 import {Request, Response} from "../usecase/getall_product";
 import {HandlerFunc} from "./controller";
+import express from "express";
 
-export const handleGetAllProduct = (ctrl: ControllerRegisterer): HandlerFunc => {
-    return async (req, res) => {
+export const handleGetAllProduct = (executable: Inport<Request, Response>): HandlerFunc => {
+    return async (req: express.Request, res: express.Response) => {
 
         try {
 
-            const execute = (ctrl.getUsecase("getAllProduct") as Inport<Request, Response>)
-
-            const result = await execute({})
+            const result = await executable({})
 
             return res.json(result)
 

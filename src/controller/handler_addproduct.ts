@@ -1,16 +1,16 @@
-import {ControllerRegisterer, Inport} from "../shared/framework_helper";
+import {Inport} from "../shared/framework_helper";
 import {Request, Response} from "../usecase/add_product";
 import {HandlerFunc} from "./controller";
 import {randomUUID} from "crypto";
+import express from "express";
 
-export const handleAddProduct = (ctrl: ControllerRegisterer): HandlerFunc => {
-    return async (req, res) => {
+export const handleAddProduct = (executable: Inport<Request, Response>): HandlerFunc => {
+
+    return async (req: express.Request, res: express.Response) => {
 
         try {
 
-            const execute = (ctrl.getUsecase("addProduct") as Inport<Request, Response>)
-
-            const result = await execute({
+            const result = await executable({
                 id: randomUUID(),
                 name: req.body.name,
                 price: req.body.price,
@@ -26,4 +26,5 @@ export const handleAddProduct = (ctrl: ControllerRegisterer): HandlerFunc => {
         }
 
     };
-};
+
+}
