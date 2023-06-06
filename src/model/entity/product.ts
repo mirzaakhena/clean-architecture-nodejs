@@ -12,7 +12,7 @@ export class Product {
     @Column()
     price: number = 0;
 
-    validate() {
+    validate(): void {
 
         if (this.name === undefined || this.name?.length === 0) {
             throw new Error("Name is required");

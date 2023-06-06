@@ -12,7 +12,7 @@ export interface Response {
 
 export const getAllProduct = ([findAllProducts]: [FindAllProducts]): Inport<Request, Response> => {
 
-    return async (req: Request): Promise<Response> => {
+    return async (_: Request): Promise<Response> => {
         const [products, count] = await findAllProducts()
         return {data: products, count: count}
     }

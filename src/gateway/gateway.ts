@@ -1,7 +1,7 @@
 import {DataSource} from "typeorm";
 import {Product} from "../model/entity/product";
 
-export const getDataSource = ():DataSource => {
+export const getDataSource = (): DataSource => {
 
     const dataSource = new DataSource({
         type: "sqlite",

@@ -1,4 +1,5 @@
 import "reflect-metadata"
+
 import express from "express";
 import {runServer} from "./controller/controller";
 
@@ -14,14 +15,23 @@ import {getAllProduct} from "./usecase/execute_getall_product";
 import {handleAddProduct} from "./controller/handler_addproduct";
 import {handleGetAllProduct} from "./controller/handler_getallproduct";
 
-const repo = getDataSource().getRepository(Product)
+const bootstrap = () => {
 
-const saveProduct: SaveProduct = SaveProductImpl(repo)
-const findAllProducts: FindAllProducts = FindAllProductsImpl(repo)
+    const repo = getDataSource().getRepository(Product)
 
-const router = express.Router()
+    const saveProduct: SaveProduct = SaveProductImpl(repo)
+    const findAllProducts: FindAllProducts = FindAllProductsImpl(repo)
 
-router.post("/products", handleAddProduct(addProduct([saveProduct])))
-router.get("/products", handleGetAllProduct(getAllProduct([findAllProducts])))
+    const router = express.Router()
 
-runServer(router)
+    router.post("/products", handleAddProduct(addProduct([saveProduct])))
+    router.get("/products", handleGetAllProduct(getAllProduct([findAllProducts])))
+
+    runServer(router)
+}
+
+bootstrap()
+
+
+
+
