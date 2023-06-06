@@ -1,16 +1,27 @@
 import "reflect-metadata"
-import {Gateway} from "./gateway/gateway_impl";
-import {Controller} from "./controller/controller";
-import {Interactor as addProduct} from "./usecase/add_product";
-import {Interactor as getAllProduct} from "./usecase/getall_product";
+import express from "express";
+import {runServer} from "./controller/controller";
 
-const gw = new Gateway()
+import {Product} from "./model/entity/product";
+import {FindAllProducts, SaveProduct} from "./model/repository/product";
 
-const ct = new Controller()
+import {FindAllProductsImpl, SaveProductImpl} from "./gateway/impl_product";
+import {getDataSource} from "./gateway/gateway";
 
-ct.addUsecase("addProduct", new addProduct(gw))
-ct.addUsecase("getAllProduct", new getAllProduct(gw))
+import {addProduct} from "./usecase/execute_add_product";
+import {getAllProduct} from "./usecase/execute_getall_product";
 
-ct.registerRouter()
+import {handleAddProduct} from "./controller/handler_addproduct";
+import {handleGetAllProduct} from "./controller/handler_getallproduct";
 
-ct.start()
+const repo = getDataSource().getRepository(Product)
+
+const saveProduct: SaveProduct = SaveProductImpl(repo)
+const findAllProducts: FindAllProducts = FindAllProductsImpl(repo)
+
+const router = express.Router()
+
+router.post("/products", handleAddProduct(addProduct([saveProduct])))
+router.get("/products", handleGetAllProduct(getAllProduct([findAllProducts])))
+
+runServer(router)

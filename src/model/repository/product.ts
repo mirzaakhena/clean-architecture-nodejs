@@ -1,9 +1,5 @@
-import { Product } from "../entity/product";
+import {Product} from "../entity/product";
 
-export interface SaveProduct{
-    saveProduct(product: Product): void
-}
+export type SaveProduct = (product: Product) => Promise<void>
 
-export interface FindAllProducts {
-    findAllProducts(): Promise<[Product[], number]>
-}
+export type FindAllProducts = () => Promise<[Product[], number]>
