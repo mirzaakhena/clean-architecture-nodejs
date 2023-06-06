@@ -1,14 +1,37 @@
 # Clean Architecture NodeJS
 
 ## Installation
+git clone the repo then install required dependencies
 ```shell
 $ npm install 
 ```
 
-## Run application
+## Run the application
 ```shell
 $ npm run start
 ```
+Application will run in port 3000
+
+## Use the application
+
+For inserting the product
+```text
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "orange",
+  "price": 5000
+}
+```
+
+For get all the products
+```text
+GET http://localhost:3000/products
+Content-Type: application/json
+```
+Or you can just use the `request.http` file to test the api request invocation.
+
 
 ## Code Structure
 ```text
