@@ -10,16 +10,13 @@ export interface Response {
     count: number
 }
 
-export interface Outport extends FindAllProducts {
-}
-
 export class Interactor implements Inport<Request, Response> {
 
-    constructor(private readonly outport: Outport) {
+    constructor(private readonly findAllProducts: FindAllProducts) {
     }
 
     async Execute(req: Request): Promise<Response> {
-        const [products, count] = await this.outport.findAllProducts()
+        const [products, count] = await this.findAllProducts.do()
         return {data: products, count: count}
     }
 

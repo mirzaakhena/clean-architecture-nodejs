@@ -12,12 +12,9 @@ export interface Response {
     id: string
 }
 
-export interface Outport extends SaveProduct {
-}
-
 export class Interactor implements Inport<Request, Response> {
 
-    constructor(private readonly outport: Outport) {
+    constructor(private readonly saveProduct: SaveProduct) {
     }
 
     async Execute({id, name, price}: Request): Promise<Response> {
@@ -30,7 +27,7 @@ export class Interactor implements Inport<Request, Response> {
 
             obj.validate()
 
-            await this.outport.saveProduct(obj)
+            await this.saveProduct.do(obj)
 
             return {id: obj.id}
         } catch (err) {
