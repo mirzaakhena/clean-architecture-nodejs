@@ -28,7 +28,8 @@ export class BaseController implements UsecaseRegisterer {
     }
 }
 
-export interface Inport<REQUEST, RESPONSE> {
-    Execute(request: REQUEST): Promise<RESPONSE>
-}
+// export interface Inport<REQUEST, RESPONSE> {
+//     Execute(request: REQUEST): Promise<RESPONSE>
+// }
 
+export type Inport<REQUEST, RESPONSE> = (request: REQUEST) => Promise<RESPONSE>

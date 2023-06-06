@@ -8,9 +8,9 @@ export const handleAddProduct = (ctrl: ControllerRegisterer): HandlerFunc => {
 
         try {
 
-            const inport = (ctrl.getUsecase("addProduct") as Inport<Request, Response>)
+            const execute = (ctrl.getUsecase("addProduct") as Inport<Request, Response>)
 
-            const result = await inport.Execute({
+            const result = await execute({
                 id: randomUUID(),
                 name: req.body.name,
                 price: req.body.price,

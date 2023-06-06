@@ -7,9 +7,9 @@ export const handleGetAllProduct = (ctrl: ControllerRegisterer): HandlerFunc => 
 
         try {
 
-            const inport = (ctrl.getUsecase("getAllProduct") as Inport<Request, Response>)
+            const execute = (ctrl.getUsecase("getAllProduct") as Inport<Request, Response>)
 
-            const result = await inport.Execute({})
+            const result = await execute({})
 
             return res.json(result)
 
