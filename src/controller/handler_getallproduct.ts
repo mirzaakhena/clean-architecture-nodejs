@@ -1,5 +1,5 @@
-import {Inport} from "../shared/framework_helper";
-import {Request, Response} from "../usecase/getall_product";
+import {Inport} from "../usecase/usecase";
+import {Request, Response} from "../usecase/execute_getall_product";
 import {HandlerFunc} from "./controller";
 import express from "express";
 

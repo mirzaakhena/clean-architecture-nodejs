@@ -1,4 +1,4 @@
-import {Inport} from "../shared/framework_helper";
+import {Inport} from "./usecase";
 import {Product} from "../model/entity/product";
 import {FindAllProducts} from "../model/repository/product";
 
@@ -10,14 +10,11 @@ export interface Response {
     count: number
 }
 
-type Outport = [FindAllProducts]
-
-export const getAllProduct = (outport: Outport): Inport<Request, Response> => {
-
-    const [findAllProducts] = outport
+export const getAllProduct = ([findAllProducts]: [FindAllProducts]): Inport<Request, Response> => {
 
     return async (req: Request): Promise<Response> => {
         const [products, count] = await findAllProducts()
         return {data: products, count: count}
     }
+
 }

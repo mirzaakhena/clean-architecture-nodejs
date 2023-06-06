@@ -1,4 +1,4 @@
-import {Inport} from "../shared/framework_helper";
+import {Inport} from "./usecase";
 import {Product} from "../model/entity/product";
 import {SaveProduct} from "../model/repository/product";
 
@@ -12,11 +12,7 @@ export interface Response {
     id: string
 }
 
-type Outport = [SaveProduct]
-
-export const addProduct = (outport: Outport): Inport<Request, Response> => {
-
-    const [saveProduct] = outport
+export const addProduct = ([saveProduct]: [SaveProduct]): Inport<Request, Response> => {
 
     return async ({id, name, price}: Request): Promise<Response> => {
 
@@ -35,7 +31,6 @@ export const addProduct = (outport: Outport): Inport<Request, Response> => {
         } catch (err) {
             throw err
         }
-
 
     }
 }

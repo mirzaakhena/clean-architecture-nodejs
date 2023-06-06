@@ -1,5 +1,5 @@
-import {Inport} from "../shared/framework_helper";
-import {Request, Response} from "../usecase/add_product";
+import {Inport} from "../usecase/usecase";
+import {Request, Response} from "../usecase/execute_add_product";
 import {HandlerFunc} from "./controller";
 import {randomUUID} from "crypto";
 import express from "express";

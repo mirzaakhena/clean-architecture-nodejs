@@ -1,7 +1,6 @@
 import {FindAllProducts, SaveProduct} from "../model/repository/product";
 import {Product} from "../model/entity/product";
-import {DataSource, Repository} from "typeorm";
-import exp from "constants";
+import {Repository} from "typeorm";
 
 export const SaveProductImpl = (repo: Repository<Product>) : SaveProduct => {
    return async (product: Product): Promise<void> => {
