@@ -1,24 +1,66 @@
-Run this command
-```
-tsc --init 
+# Clean Architecture NodeJS
+
+## Installation
+```shell
+$ npm install 
 ```
 
-Enable
-```
-"outDir": "./dist",
-```
-
-Install expressjs
-```
-npm install express --save
+## Run application
+```shell
+$ npm run start
 ```
 
-If you want to add new requirements
+## Code Structure
 ```text
-1. define your model in `model/entity`
-2. define your request, response, write an algorithm then put your required method in Outport, in `usecase/`. 
-3. define your repository in `model/repository` to be re-used in outport in different usecase later
-4. define your outport implementation in gateway
-5. publish your usecase with controller in `controller/handler_yourusecase` and `controller/router`,
-6. bind usecase, gateway and controller together. 
+src
+├── controller
+│   ├── controller.ts
+│   ├── handler_addproduct.ts
+│   ├── handler_getallproduct.ts
+│   ├── request.http
+│   └── router.ts
+├── gateway
+│   └── gateway_impl.ts
+├── index.ts
+├── model
+│   ├── entity
+│   │   └── product.ts
+│   └── repository
+│       └── product.ts
+├── shared
+│   └── framework_helper.ts
+└── usecase
+    ├── add_product.ts
+    └── getall_product.ts
 ```
+
+## How to work with this structure
+First you start by defining model in `model/entity`. Model here is the rich domain model which means it can have a methods that can modify it own state.
+For example the method validate to check the validity of object. We can also have other method to have some logic. 
+
+Next you go to the use case under `usecase` folders. Usecase here follow the use case definition on clean architecture concept that has an input port, output port, and interactor.
+Input port is the place you define the request and response payload. Interactor is the place you define the use case algorithm. 
+And the last part is output port is the place you define any methods that will need to be called by interactor.
+
+In most cases, you will define the output port methods in repository interface, then it will be extended by output port interface. 
+Repository interface is shared between output port.
+Repository interface prefer to be simple and granular. Means, one interface one method is very enough for this case.
+Repository mostly used for interacting with database.
+
+What if we need to do some operations that is not related to database? 
+Something like calling the external API, publish some message to message broker or something else?
+We can introduce to use a service interface (`model/service`). 
+
+Gateway is the place we implement all the methods from Outport interface. Most of the time, one gateway is enough.
+
+Controllers is the place we define the routers (`controller/router`) and all the handlers (`handler/handler_usecasename`).
+Controller will call the Input Port method.
+
+The last part is the file `index.ts` which bind all usecase, gateway and controller together.
+
+By having this kind of structure, we can have clear separation of concerns between logic parts and the infrastructure parts.
+All logic parts is in model and usecase. All the infrastructure part is in gateway and controller.
+We divide evenly the code between files for readability and maintainability purposes. 
+
+
+
