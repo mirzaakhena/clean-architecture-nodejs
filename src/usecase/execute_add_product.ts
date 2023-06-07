@@ -1,6 +1,7 @@
 import {Inport} from "./usecase";
 import {Product} from "../model/entity/product";
 import {SaveProduct} from "../model/repository/product";
+import {Context} from "../utility/application";
 
 export interface Request {
     id: string
@@ -16,7 +17,7 @@ export type Outport = [SaveProduct]
 
 export const executeAddProduct = ([saveProduct]: Outport): Inport<Request, Response> => {
 
-    return async ({id, name, price}: Request): Promise<Response> => {
+    return async (ctx: Context, {id, name, price}: Request): Promise<Response> => {
 
         try {
             const obj = new Product()
@@ -26,7 +27,7 @@ export const executeAddProduct = ([saveProduct]: Outport): Inport<Request, Respo
 
             obj.validate()
 
-            await saveProduct(obj)
+            await saveProduct(ctx, obj)
 
             return {id: obj.id}
 

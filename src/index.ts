@@ -4,8 +4,6 @@ require('dotenv').config()
 import express from "express";
 import {runServer} from "./controller/controller";
 
-import {Product} from "./model/entity/product";
-
 import {ImplFindAllProducts, ImplSaveProduct} from "./gateway/impl_product";
 import {getDataSource} from "./gateway/gateway";
 
@@ -14,18 +12,26 @@ import {executeGetAllProduct} from "./usecase/execute_getall_product";
 
 import {handleAddProduct} from "./controller/handler_addproduct";
 import {handleGetAllProduct} from "./controller/handler_getallproduct";
+import {ImplSaveOrder} from "./gateway/impl_order";
+import {executeCreateOrder} from "./usecase/execute_create_order";
+import {ImplWithTransaction} from "./gateway/impl_trx";
+import {handleCreateOrder} from "./controller/handler_createorder";
 
 const bootstrap = () => {
 
-    const repo = getDataSource().getRepository(Product)
+    const m = getDataSource()
 
-    const saveProduct = ImplSaveProduct(repo)
-    const findAllProducts = ImplFindAllProducts(repo)
+    const withTrx = ImplWithTransaction(m)
+
+    const saveOrder = ImplSaveOrder(m)
+    const saveProduct = ImplSaveProduct(m)
+    const findAllProducts = ImplFindAllProducts(m)
 
     const router = express.Router()
 
     router.post("/products", handleAddProduct(executeAddProduct([saveProduct])))
     router.get("/products", handleGetAllProduct(executeGetAllProduct([findAllProducts])))
+    router.post("/order", handleCreateOrder(executeCreateOrder([saveProduct,saveOrder,withTrx])))
 
     runServer(router)
 }

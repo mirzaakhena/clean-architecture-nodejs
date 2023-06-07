@@ -1,16 +1,16 @@
 import {Inport} from "../usecase/usecase";
-import {Request, Response} from "../usecase/execute_add_product";
+import {Request, Response} from "../usecase/execute_create_order";
 import {HandlerFunc} from "./controller";
 import {randomUUID} from "crypto";
 import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
 
-export const handleAddProduct = (executable: Inport<Request, Response>): HandlerFunc => {
+export const handleCreateOrder = (executable: Inport<Request, Response>): HandlerFunc => {
 
     return async (req: express.Request, res: express.Response) => {
 
-        const ctx = getContext(handleAddProduct.name)
+        const ctx = getContext(handleCreateOrder.name)
 
         try {
 
@@ -22,7 +22,7 @@ export const handleAddProduct = (executable: Inport<Request, Response>): Handler
                 price: req.body.price,
             })
 
-            logger.info(ctx, `done with id ${result.id}`)
+            logger.info(ctx, `done`)
 
             return res.json(result)
 

@@ -1,9 +1,10 @@
 import express from "express";
 import {logger} from "../utility/logger";
+import {getContext} from "../utility/application";
 
 export type HandlerFunc = (req: express.Request, res: express.Response) => void
 
-export const runServer = (router : express.Router): void => {
+export const runServer = (router: express.Router): void => {
 
     const app = express()
     app.use(express.json())
@@ -13,7 +14,7 @@ export const runServer = (router : express.Router): void => {
     const port = process.env.SERVER_PORT
 
     app.listen(port, () => {
-        logger.info(`Server is running on port ${port} ...`)
+        logger.info(getContext(runServer.name), `Server is running on port ${port} ...`)
     })
 
 }

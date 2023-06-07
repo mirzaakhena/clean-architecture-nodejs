@@ -1,5 +1,6 @@
 import {Product} from "../entity/product";
+import {Context} from "../../utility/application";
 
-export type SaveProduct = (product: Product) => Promise<void>
+export type SaveProduct = (ctx: Context, product: Product) => Promise<void>
 
-export type FindAllProducts = () => Promise<[Product[], number]>
+export type FindAllProducts = (ctx: Context) => Promise<[Product[], number]>
