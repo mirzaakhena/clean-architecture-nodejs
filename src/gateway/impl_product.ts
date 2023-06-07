@@ -6,20 +6,12 @@ import {getManager} from "./impl_trx";
 
 export const ImplSaveProduct = (ds: DataSource): SaveProduct => {
     return async (ctx: Context, product: Product): Promise<void> => {
-        try {
-            await getManager(ctx, ds.manager).save(product)
-        } catch (err) {
-            throw err
-        }
+        await getManager(ctx, ds.manager).save(product)
     }
 }
 
 export const ImplFindAllProducts = (ds: DataSource): FindAllProducts => {
     return async (ctx: Context): Promise<[Product[], number]> => {
-        try {
-            return await getManager(ctx, ds.manager).findAndCount(Product)
-        } catch (err) {
-            throw err
-        }
+        return await getManager(ctx, ds.manager).findAndCount(Product)
     }
 }

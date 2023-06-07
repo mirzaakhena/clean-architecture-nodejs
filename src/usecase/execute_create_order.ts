@@ -30,25 +30,19 @@ export const executeCreateOrder = (o: Outport): Inport<Request, Response> => {
 
         await withTransaction(ctx, async (ctx: Context) => {
 
-            try {
+            const objOrder = new Order()
+            objOrder.id = req.id
+            objOrder.name = "ooo " + req.name
+            await saveOrder(ctx, objOrder)
 
-                const objOrder = new Order()
-                objOrder.id = req.id
-                objOrder.name = "ooo " + req.name
-                await saveOrder(ctx, objOrder)
+            const objProduct = new Product()
+            objProduct.name = req.name
+            objProduct.price = req.price
+            objProduct.id = req.id
 
-                const objProduct = new Product()
-                objProduct.name = req.name
-                objProduct.price = req.price
-                objProduct.id = req.id
+            objProduct.validate()
 
-                objProduct.validate()
-
-                await saveProduct(ctx, objProduct)
-
-            } catch (err) {
-                throw err
-            }
+            await saveProduct(ctx, objProduct)
 
         })
 

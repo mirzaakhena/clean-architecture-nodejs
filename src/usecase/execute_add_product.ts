@@ -18,22 +18,15 @@ export type Outport = [SaveProduct]
 export const executeAddProduct = ([saveProduct]: Outport): Inport<Request, Response> => {
 
     return async (ctx: Context, {id, name, price}: Request): Promise<Response> => {
+        const obj = new Product()
+        obj.id = id
+        obj.name = name
+        obj.price = price
 
-        try {
-            const obj = new Product()
-            obj.id = id
-            obj.name = name
-            obj.price = price
+        obj.validate()
 
-            obj.validate()
+        await saveProduct(ctx, obj)
 
-            await saveProduct(ctx, obj)
-
-            return {id: obj.id}
-
-        } catch (err) {
-            throw err
-        }
-
+        return {id: obj.id}
     }
 }
