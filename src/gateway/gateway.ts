@@ -1,5 +1,6 @@
 import {DataSource} from "typeorm";
 import {Product} from "../model/entity/product";
+import {logger} from "../utility/logger";
 
 export const getDataSource = (): DataSource => {
 
@@ -14,8 +15,8 @@ export const getDataSource = (): DataSource => {
     })
 
     dataSource.initialize()
-        .then(() => console.log("database connected..."))
-        .catch((error) => console.log("Something Happen!!! ", error))
+        .then(() => logger.info("database is connected..."))
+        .catch((error) => logger.info("problem in database connection : ", error))
 
     return dataSource
 }
