@@ -6,9 +6,13 @@ import express from "express";
 
 export const handleAddProduct = (executable: Inport<Request, Response>): HandlerFunc => {
 
+    const logger = require('pino')(require('pino-pretty'))
+
     return async (req: express.Request, res: express.Response) => {
 
         try {
+
+            logger.info(req.body)
 
             const result = await executable({
                 id: randomUUID(),

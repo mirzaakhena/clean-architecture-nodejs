@@ -9,7 +9,7 @@ export const runServer = (router : express.Router): void => {
     app.use(express.urlencoded({extended: true}))
     app.use(router)
 
-    const port = 3000
+    const port = process.env.SERVER_PORT
 
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`)

@@ -1,4 +1,5 @@
 import "reflect-metadata"
+require('dotenv').config()
 
 import express from "express";
 import {runServer} from "./controller/controller";
@@ -27,6 +28,19 @@ const bootstrap = () => {
     router.get("/products", handleGetAllProduct(executeGetAllProduct([findAllProducts])))
 
     runServer(router)
+}
+
+if (!process.env.SERVER_PORT) {
+
+    const message = "Before running, please provide .env file and specify :\n\n" +
+        "SERVER_PORT=\n" +
+        "DATABASE_HOST=\n" +
+        "DATABASE_NAME=\n" +
+        "DATABASE_USER=\n" +
+        "DATABASE_PASSWORD=\n"
+
+    console.log(message)
+    process.exit(1);
 }
 
 bootstrap()
