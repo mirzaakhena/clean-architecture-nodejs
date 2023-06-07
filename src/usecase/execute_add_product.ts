@@ -14,7 +14,7 @@ export interface Response {
 
 export type Outport = [SaveProduct]
 
-export const addProduct = ([saveProduct]: Outport): Inport<Request, Response> => {
+export const executeAddProduct = ([saveProduct]: Outport): Inport<Request, Response> => {
 
     return async ({id, name, price}: Request): Promise<Response> => {
 
