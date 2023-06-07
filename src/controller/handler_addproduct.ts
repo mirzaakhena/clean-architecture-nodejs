@@ -24,7 +24,7 @@ export const handleAddProduct = (executable: Inport<Request, Response>): Handler
             return res.json(result)
 
         } catch (err) {
-
+            logger.error(`handleAddProduct fail. Causes : ${(err as Error).message}`)
             return res.status(400).send({
                 message: (err as Error).message,
             });

@@ -11,11 +11,13 @@ export const handleGetAllProduct = (executable: Inport<Request, Response>): Hand
 
             const result = await executable({})
 
-            logger.info(`result count = ${result.count}`)
+            logger.info(`handleGetAllProduct result count : ${result.count}`)
 
             return res.json(result)
 
         } catch (err) {
+
+            logger.error(`handleGetAllProduct error : ${(err as Error).message}`)
 
             return res.status(400).send({
                 message: (err as Error).message,

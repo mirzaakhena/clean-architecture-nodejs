@@ -13,7 +13,6 @@ export const runServer = (router : express.Router): void => {
     const port = process.env.SERVER_PORT
 
     app.listen(port, () => {
-
         logger.info(`Server is running on port ${port} ...`)
     })
 
