@@ -12,7 +12,9 @@ export interface Response {
     id: string
 }
 
-export const addProduct = ([saveProduct]: [SaveProduct]): Inport<Request, Response> => {
+export type Outport = [SaveProduct]
+
+export const addProduct = ([saveProduct]: Outport): Inport<Request, Response> => {
 
     return async ({id, name, price}: Request): Promise<Response> => {
 

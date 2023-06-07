@@ -4,7 +4,6 @@ import express from "express";
 import {runServer} from "./controller/controller";
 
 import {Product} from "./model/entity/product";
-import {FindAllProducts, SaveProduct} from "./model/repository/product";
 
 import {FindAllProductsImpl, SaveProductImpl} from "./gateway/impl_product";
 import {getDataSource} from "./gateway/gateway";
@@ -19,8 +18,8 @@ const bootstrap = () => {
 
     const repo = getDataSource().getRepository(Product)
 
-    const saveProduct: SaveProduct = SaveProductImpl(repo)
-    const findAllProducts: FindAllProducts = FindAllProductsImpl(repo)
+    const saveProduct = SaveProductImpl(repo)
+    const findAllProducts = FindAllProductsImpl(repo)
 
     const router = express.Router()
 
