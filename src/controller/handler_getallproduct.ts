@@ -1,20 +1,23 @@
 import {Inport} from "../usecase/usecase";
 import {Request, Response} from "../usecase/execute_getall_product";
-import {HandlerFunc} from "./controller";
+import {DecodedRequest, getUser, HandlerFunc} from "./controller";
 import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
 
 export const handleGetAllProduct = (executable: Inport<Request, Response>): HandlerFunc => {
-    return async (req: express.Request, res: express.Response) => {
+    return async (req: DecodedRequest, res: express.Response) => {
 
         const ctx = getContext(handleGetAllProduct.name)
 
         try {
 
+            const user = getUser(req)
+            ctx.username = user.username
+
             const result = await executable(ctx, {})
 
-            logger.info(ctx, ` result count : ${result.count}`)
+            logger.info(ctx, ` called by ${user.username} result count : ${result.count}`)
 
             return res.json(result)
 

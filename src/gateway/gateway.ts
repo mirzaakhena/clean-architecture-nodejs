@@ -3,6 +3,7 @@ import {Product} from "../model/entity/product";
 import {logger} from "../utility/logger";
 import {Order} from "../model/entity/order";
 import {getContext} from "../utility/application";
+import {User} from "../model/entity/user";
 
 export const getDataSource = (): DataSource => {
 
@@ -11,7 +12,7 @@ export const getDataSource = (): DataSource => {
         database: "database.sqlite",
         synchronize: true,
         logging: true,
-        entities: [Product, Order],
+        entities: [Product, Order, User],
         migrations: [],
         subscribers: [],
     })

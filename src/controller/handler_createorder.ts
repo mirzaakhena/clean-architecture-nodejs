@@ -1,6 +1,6 @@
 import {Inport} from "../usecase/usecase";
 import {Request, Response} from "../usecase/execute_create_order";
-import {HandlerFunc} from "./controller";
+import {DecodedRequest, getUser, HandlerFunc} from "./controller";
 import {randomUUID} from "crypto";
 import express from "express";
 import {logger} from "../utility/logger";
@@ -8,11 +8,14 @@ import {getContext} from "../utility/application";
 
 export const handleCreateOrder = (executable: Inport<Request, Response>): HandlerFunc => {
 
-    return async (req: express.Request, res: express.Response) => {
+    return async (req: DecodedRequest, res: express.Response) => {
 
         const ctx = getContext(handleCreateOrder.name)
 
         try {
+
+            const user = getUser(req)
+            ctx.username = user.username
 
             logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
 
@@ -20,6 +23,7 @@ export const handleCreateOrder = (executable: Inport<Request, Response>): Handle
                 id: randomUUID(),
                 name: req.body.name,
                 price: req.body.price,
+                username: user.username,
             })
 
             logger.info(ctx, `done`)

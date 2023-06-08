@@ -10,6 +10,7 @@ export interface Request {
     id: string
     name: string
     price: number
+    username: string
 }
 
 export interface Response {
@@ -32,7 +33,7 @@ export const executeCreateOrder = (o: Outport): Inport<Request, Response> => {
 
             const objOrder = new Order()
             objOrder.id = req.id
-            objOrder.name = "ooo " + req.name
+            objOrder.username = req.username
             await saveOrder(ctx, objOrder)
 
             const objProduct = new Product()

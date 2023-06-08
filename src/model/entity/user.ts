@@ -1,12 +1,12 @@
 import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity()
-export class Order {
+export class User {
 
     @PrimaryColumn()
-    id: string = "";
+    username: string = ""
 
     @Column()
-    username: string = "";
-
+    roles: string = ""
 }
+

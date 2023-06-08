@@ -1,6 +1,8 @@
 ###
 POST http://localhost:3000/products
 Content-Type: application/json
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
+
 
 {
   "name": "akhena",
@@ -10,12 +12,24 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/products
 Content-Type: application/json
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
 
 ###
 POST http://localhost:3000/order
 Content-Type: application/json
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
+
 
 {
   "name": "Aaa",
   "price": 91
+}
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "mirza",
+  "password": "mirza"
 }
