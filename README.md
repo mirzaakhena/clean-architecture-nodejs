@@ -37,8 +37,8 @@ Or you can just use the `request.http` file to test the api request invocation.
 src
 ├── controller
 │   ├── controller.ts
-│   ├── handler_addproduct.ts
-│   ├── handler_getallproduct.ts
+│   ├── handle_addproduct.ts
+│   ├── handle_getallproduct.ts
 │   └── request.http
 ├── gateway
 │   ├── gateway.ts

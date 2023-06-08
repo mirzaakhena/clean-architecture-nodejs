@@ -2,23 +2,23 @@ import "reflect-metadata"
 
 import express from "express";
 import {runServer} from "./controller/controller";
-
-import {ImplFindAllProducts, ImplSaveProduct} from "./gateway/impl_product";
 import {getDataSource} from "./gateway/gateway";
 
 import {executeAddProduct} from "./usecase/execute_add_product";
 import {executeGetAllProduct} from "./usecase/execute_getall_product";
-
-import {handleAddProduct} from "./controller/handler_addproduct";
-import {handleGetAllProduct} from "./controller/handler_getallproduct";
-import {ImplSaveOrder} from "./gateway/impl_order";
 import {executeCreateOrder} from "./usecase/execute_create_order";
-import {ImplWithTransaction} from "./gateway/impl_trx";
-import {handleCreateOrder} from "./controller/handler_createorder";
-import {handleLogin} from "./controller/handler_login";
 import {executeLogin} from "./usecase/execute_login";
-import {ImplFindOneUserByUsername, ImplValidatePassword} from "./gateway/impl_user";
+
+import {handleAddProduct} from "./controller/handle_addproduct";
+import {handleGetAllProduct} from "./controller/handle_getallproduct";
+import {handleCreateOrder} from "./controller/handle_createorder";
+import {handleLogin} from "./controller/handle_login";
 import {handleAuthorization} from "./controller/handle_authorization";
+
+import {ImplFindAllProducts, ImplSaveProduct} from "./gateway/impl_product";
+import {ImplFindOneUserByUsername, ImplValidatePassword} from "./gateway/impl_user";
+import {ImplSaveOrder} from "./gateway/impl_order";
+import {ImplWithTransaction} from "./gateway/impl_trx";
 
 const bootstrap = () => {
 
