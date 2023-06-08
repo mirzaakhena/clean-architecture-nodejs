@@ -3,16 +3,23 @@ import {Product} from "../model/entity/product";
 import {logger} from "../utility/logger";
 import {Order} from "../model/entity/order";
 import {getContext} from "../utility/application";
-import {User} from "../model/entity/user";
+import {User, UserRole} from "../model/entity/user";
 
 export const getDataSource = (): DataSource => {
+
+    const entities = [
+        Product,
+        Order,
+        User,
+        UserRole,
+    ]
 
     const dataSource = new DataSource({
         type: "sqlite",
         database: "database.sqlite",
         synchronize: true,
         logging: true,
-        entities: [Product, Order, User],
+        entities: entities,
         migrations: [],
         subscribers: [],
     })

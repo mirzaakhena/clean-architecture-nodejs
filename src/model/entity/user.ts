@@ -7,6 +7,18 @@ export class User {
     username: string = ""
 
     @Column()
-    roles: string = ""
+    name: string = ""
+
+    roles?: string[];
+
 }
 
+@Entity()
+export class UserRole {
+
+    @PrimaryColumn()
+    username: string = ""
+
+    @Column()
+    role: string = ""
+}

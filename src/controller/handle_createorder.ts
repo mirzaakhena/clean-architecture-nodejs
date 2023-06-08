@@ -1,21 +1,26 @@
 import {Inport} from "../usecase/usecase";
 import {Request, Response} from "../usecase/execute_create_order";
-import {DecodedRequest, getUser, HandlerFunc} from "./controller";
+import {DecodedRequest, getUser, hasOneOfRoles} from "./controller";
 import {randomUUID} from "crypto";
 import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
+import {HandlerFuncWithNext} from "./handle_authorization";
 
-export const handleCreateOrder = (executable: Inport<Request, Response>): HandlerFunc => {
+export const handleCreateOrder = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
 
-    return async (req: DecodedRequest, res: express.Response) => {
-
-        const ctx = getContext(handleCreateOrder.name)
+    return async (req: DecodedRequest, res: express.Response, next: express.NextFunction) => {
 
         try {
 
+            const ctx = getContext(handleCreateOrder.name)
+
             const user = getUser(req)
-            ctx.username = user.username
+
+            if (!hasOneOfRoles(user,["admin", "operator"])) {
+                res.sendStatus(403);
+                return
+            }
 
             logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
 
@@ -28,16 +33,12 @@ export const handleCreateOrder = (executable: Inport<Request, Response>): Handle
 
             logger.info(ctx, `done`)
 
-            return res.json(result)
+            res.json(result)
 
         } catch (err) {
-
-            logger.error(ctx, `fail. Causes : ${(err as Error).message}`)
-
-            return res.status(400).send({
-                message: (err as Error).message,
-            });
+            next(err)
         }
+
 
     };
 

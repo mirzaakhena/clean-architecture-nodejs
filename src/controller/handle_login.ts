@@ -5,14 +5,15 @@ import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
 import jwt from "jsonwebtoken";
+import {HandlerFuncWithNext} from "./handle_authorization";
 
-export const handleLogin = (executable: Inport<Request, Response>): HandlerFunc => {
+export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
 
-    return async (req: express.Request, res: express.Response) => {
-
-        const ctx = getContext(handleLogin.name)
+    return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
         try {
+
+            const ctx = getContext(handleLogin.name)
 
             logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
 
@@ -25,16 +26,13 @@ export const handleLogin = (executable: Inport<Request, Response>): HandlerFunc 
             const expiration = {expiresIn: process.env.TOKEN_EXPIRATION}
             const token = jwt.sign(payload, secretKey, expiration);
 
-            return res.json({token: token})
+            res.json({token: token})
 
         } catch (err) {
-
-            logger.error(ctx, `fail. Causes : ${(err as Error).message}`)
-
-            return res.status(400).send({
-                message: (err as Error).message,
-            });
+            next(err)
         }
+
+
 
     };
 

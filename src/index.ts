@@ -16,7 +16,7 @@ import {handleLogin} from "./controller/handle_login";
 import {handleAuthorization} from "./controller/handle_authorization";
 
 import {ImplFindAllProducts, ImplSaveProduct} from "./gateway/impl_product";
-import {ImplFindOneUserByUsername, ImplValidatePassword} from "./gateway/impl_user";
+import {ImplFindAllUserRoles, ImplFindOneUserByUsername, ImplValidatePassword} from "./gateway/impl_user";
 import {ImplSaveOrder} from "./gateway/impl_order";
 import {ImplWithTransaction} from "./gateway/impl_trx";
 
@@ -31,16 +31,19 @@ const bootstrap = () => {
     const saveOrder = ImplSaveOrder(m)
     const saveProduct = ImplSaveProduct(m)
     const findAllProducts = ImplFindAllProducts(m)
+    const findAllUserRoles = ImplFindAllUserRoles(m)
 
     const router = express.Router()
 
-    router.post("/products", handleAuthorization(), handleAddProduct(executeAddProduct([saveProduct])))
+    router.use("/api/v1", handleAuthorization());
 
-    router.get("/products", handleAuthorization(), handleGetAllProduct(executeGetAllProduct([findAllProducts])))
+    router.post("/api/v1/products", handleAddProduct(executeAddProduct([saveProduct])))
 
-    router.post("/order", handleAuthorization(), handleCreateOrder(executeCreateOrder([saveProduct, saveOrder, withTrx])))
+    router.get("/api/v1/products", handleGetAllProduct(executeGetAllProduct([findAllProducts])))
 
-    router.post("/login", handleLogin(executeLogin([findOneUserByUsername, validatePassword])))
+    router.post("/api/v1/order", handleCreateOrder(executeCreateOrder([saveProduct, saveOrder, withTrx])))
+
+    router.post("/login", handleLogin(executeLogin([findOneUserByUsername, validatePassword, findAllUserRoles])))
 
     runServer(router)
 }

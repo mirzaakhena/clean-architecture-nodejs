@@ -1,4 +1,5 @@
 import {Column, Entity, PrimaryColumn} from "typeorm";
+import {LogicError} from "./error";
 
 @Entity()
 export class Product {
@@ -14,12 +15,12 @@ export class Product {
 
     validate(): void {
 
-        if (this.name === undefined || this.name?.length === 0) {
-            throw new Error("Name is required");
+        if (!this.name?.length) {
+            throw new LogicError("Name is required");
         }
 
-        if (this.price === undefined || this.price <= 0) {
-            throw new Error("Price is required");
+        if (!this.price || this.price <= 0) {
+            throw new LogicError("Price is required");
         }
 
     }

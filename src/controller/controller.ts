@@ -2,6 +2,7 @@ import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
 import {User} from "../model/entity/user";
+import {handleError} from "./handle_error";
 
 export type HandlerFunc = (req: express.Request, res: express.Response) => void
 
@@ -9,11 +10,16 @@ export interface DecodedRequest extends express.Request {
     user?: User;
 }
 
-export const getUser = (req: DecodedRequest): User => {
-    if (!req.user) {
-        throw new Error("user is not defined")
+export const getUser = (req: DecodedRequest): User => req.user as User
+
+export const hasOneOfRoles = (user: User, roles: string[]): boolean => {
+    const userRoles = user.roles as string[]
+    for (const ur of userRoles) {
+        if (roles.includes(ur)) {
+            return true;
+        }
     }
-    return req.user as User
+    return false;
 }
 
 export const runServer = (router: express.Router): void => {
@@ -22,6 +28,7 @@ export const runServer = (router: express.Router): void => {
     app.use(express.json())
     app.use(express.urlencoded({extended: true}))
     app.use(router)
+    app.use(handleError)
 
     const port = process.env.SERVER_PORT
 

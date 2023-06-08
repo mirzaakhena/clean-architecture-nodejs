@@ -1,21 +1,20 @@
 ###
-POST http://localhost:3000/products
+POST http://localhost:3000/api/v1/products
 Content-Type: application/json
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
-
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJuYW1lIjoibWlyemEiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNjg2MjAzMzczLCJleHAiOjE2ODYyMDY5NzN9.FmAcYVTWpFyIWPYygwV7-itDf8SBw9egubzTlU-uJpU
 
 {
-  "name": "akhena",
+  "name": "",
   "price": 444
 }
 
 ###
-GET http://localhost:3000/products
+GET http://localhost:3000/api/v1/products
 Content-Type: application/json
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJuYW1lIjoibWlyemEiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNjg2MjAzMzczLCJleHAiOjE2ODYyMDY5NzN9.FmAcYVTWpFyIWPYygwV7-itDf8SBw9egubzTlU-uJpU
 
 ###
-POST http://localhost:3000/order
+POST http://localhost:3000/api/v1/order
 Content-Type: application/json
 Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
 
