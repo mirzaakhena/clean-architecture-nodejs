@@ -62,10 +62,11 @@ src
 
 ## What is the feature of this code ?
 1. Written with concept clean architecture that promote the separation of concern between logic code and infrastructure code.
-2. Basically just use common frameworks like expressJS and TypeORM. And not using complex frameworks like NestJS
+2. Basically just use common frameworks like ExpressJS and TypeORM. And not using complex frameworks like NestJS
 3. All the controller, use case (service in common terms) and gateway written by function closure instead of class
-4. have a login function which created the jwt token
-5. have a simple access control verified on every method by jwt token
+4. have a login function which generate the jwt token
+5. have a simple user access control verified on every method by jwt token
+6. have sample transactions database handling 
 
 
 
