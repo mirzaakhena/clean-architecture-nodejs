@@ -1,11 +1,10 @@
 import {Inport} from "../usecase/usecase";
 import {Request, Response} from "../usecase/execute_create_order";
-import {DecodedRequest, getUser, hasOneOfRoles} from "./controller";
+import {DecodedRequest, getUser, HandlerFuncWithNext, hasOneOfRoles} from "./controller";
 import {randomUUID} from "crypto";
 import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
-import {HandlerFuncWithNext} from "./handle_authorization";
 
 export const handleCreateOrder = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
 
@@ -17,7 +16,7 @@ export const handleCreateOrder = (executable: Inport<Request, Response>): Handle
 
             const user = getUser(req)
 
-            if (!hasOneOfRoles(user,["admin", "operator"])) {
+            if (!hasOneOfRoles(user, ["admin", "operator"])) {
                 res.sendStatus(403);
                 return
             }

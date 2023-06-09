@@ -1,9 +1,7 @@
 import express from "express";
 import jwt, {JwtPayload} from "jsonwebtoken";
 import {User} from "../model/entity/user";
-import {DecodedRequest} from "./controller";
-
-export type HandlerFuncWithNext = (req: express.Request, res: express.Response, next: express.NextFunction) => void
+import {DecodedRequest, HandlerFuncWithNext} from "./controller";
 
 export const handleAuthorization = (): HandlerFuncWithNext => {
 

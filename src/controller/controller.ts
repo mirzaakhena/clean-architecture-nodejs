@@ -4,7 +4,7 @@ import {getContext} from "../utility/application";
 import {User} from "../model/entity/user";
 import {handleError} from "./handle_error";
 
-export type HandlerFunc = (req: express.Request, res: express.Response) => void
+export type HandlerFuncWithNext = (req: express.Request, res: express.Response, next: express.NextFunction) => void
 
 export interface DecodedRequest extends express.Request {
     user?: User;

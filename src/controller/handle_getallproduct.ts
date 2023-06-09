@@ -4,7 +4,7 @@ import {DecodedRequest, getUser, hasOneOfRoles} from "./controller";
 import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
-import {HandlerFuncWithNext} from "./handle_authorization";
+import {HandlerFuncWithNext} from "./controller";
 
 export const handleGetAllProduct = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
     return async (req: DecodedRequest, res: express.Response, next: express.NextFunction) => {

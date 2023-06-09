@@ -1,11 +1,10 @@
 import {Inport} from "../usecase/usecase";
 import {Request, Response} from "../usecase/execute_login";
-import {HandlerFunc} from "./controller";
 import express from "express";
 import {logger} from "../utility/logger";
 import {getContext} from "../utility/application";
 import jwt from "jsonwebtoken";
-import {HandlerFuncWithNext} from "./handle_authorization";
+import {HandlerFuncWithNext} from "./controller";
 
 export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
 
@@ -31,8 +30,6 @@ export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncW
         } catch (err) {
             next(err)
         }
-
-
 
     };
 

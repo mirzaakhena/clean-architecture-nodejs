@@ -4,7 +4,6 @@ import {getManager} from "./impl_trx";
 import {FindAllUserRoles, FindOneUserByUsername, ValidatePassword} from "../model/repository/user";
 import {User, UserRole} from "../model/entity/user";
 
-
 export const ImplFindOneUserByUsername = (ds: DataSource): FindOneUserByUsername => {
     return async (ctx: Context, username: string): Promise<User | null> => {
         return await getManager(ctx, ds.manager).findOneBy(User, {username})
