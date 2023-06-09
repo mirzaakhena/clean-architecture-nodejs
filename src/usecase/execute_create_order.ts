@@ -14,40 +14,39 @@ export interface Request {
 }
 
 export interface Response {
-
+    orderId: string
+    productId: string
 }
 
 export type Outport = [SaveProduct, SaveOrder, WithTransaction]
 
 export const executeCreateOrder = (o: Outport): Inport<Request, Response> => {
 
-    const [
-        saveProduct,
-        saveOrder,
-        withTransaction,
-    ] = o
+    const [saveProduct, saveOrder, withTransaction,] = o
 
     return async (ctx: Context, req: Request): Promise<Response> => {
 
-        await withTransaction(ctx, async (ctx: Context) => {
+        return await withTransaction(ctx, async (ctx: Context): Promise<Response> => {
 
             const objOrder = new Order()
-            objOrder.id = req.id
+            objOrder.id = `order-${req.id}`
             objOrder.username = req.username
             await saveOrder(ctx, objOrder)
 
             const objProduct = new Product()
+            objProduct.id = `product-${req.id}`
             objProduct.name = req.name
             objProduct.price = req.price
-            objProduct.id = req.id
-
             objProduct.validate()
 
             await saveProduct(ctx, objProduct)
 
-        })
+            return {
+                orderId: objOrder.id,
+                productId: objProduct.id,
+            }
 
-        return {id: ""}
+        })
 
     }
 }

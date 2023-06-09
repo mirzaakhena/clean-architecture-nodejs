@@ -1,27 +1,27 @@
 ###
 POST http://localhost:3000/api/v1/products
 Content-Type: application/json
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJuYW1lIjoibWlyemEiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNjg2MjAzMzczLCJleHAiOjE2ODYyMDY5NzN9.FmAcYVTWpFyIWPYygwV7-itDf8SBw9egubzTlU-uJpU
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGlrYSIsIm5hbWUiOiJ0aWthIiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTY4NjI3NDM0MSwiZXhwIjoxNjg2Mjc3OTQxfQ.q0WUGY0V9glX3wab7l5Q6vDm9Eb9SGRcB7SC7blSBXU
 
 {
-  "name": "",
+  "name": "Aaa",
   "price": 444
 }
 
 ###
 GET http://localhost:3000/api/v1/products
 Content-Type: application/json
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJuYW1lIjoibWlyemEiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNjg2MjAzMzczLCJleHAiOjE2ODYyMDY5NzN9.FmAcYVTWpFyIWPYygwV7-itDf8SBw9egubzTlU-uJpU
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGlrYSIsIm5hbWUiOiJ0aWthIiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTY4NjI3NDM0MSwiZXhwIjoxNjg2Mjc3OTQxfQ.q0WUGY0V9glX3wab7l5Q6vDm9Eb9SGRcB7SC7blSBXU
 
 ###
 POST http://localhost:3000/api/v1/order
 Content-Type: application/json
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoibWlyemEiLCJyb2xlcyI6ImFkbWluIn0sImlhdCI6MTY4NjE5MTI5NCwiZXhwIjoxNjg2MTk0ODk0fQ.2FX4QLIEGYbXajGV2LhCZHWNqW8-j9c-OHFfiA2euLQ
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGlrYSIsIm5hbWUiOiJ0aWthIiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTY4NjI3NDM0MSwiZXhwIjoxNjg2Mjc3OTQxfQ.q0WUGY0V9glX3wab7l5Q6vDm9Eb9SGRcB7SC7blSBXU
 
 
 {
   "name": "Aaa",
-  "price": 91
+  "price": 90
 }
 
 ###
@@ -29,6 +29,6 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "mirza",
-  "password": "mirza"
+  "username": "tika",
+  "password": "tika"
 }

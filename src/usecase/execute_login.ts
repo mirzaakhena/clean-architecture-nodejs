@@ -40,7 +40,7 @@ export const executeLogin = (o: Outport): Inport<Request, Response> => {
         }
 
         const roles = await findAllUserRoles(ctx, req.username)
-        if (!roles) {
+        if (roles.length === 0) {
             throw new LogicError('User Role not found')
         }
 

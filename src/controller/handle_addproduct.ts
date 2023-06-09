@@ -17,7 +17,7 @@ export const handleAddProduct = (executable: Inport<Request, Response>): Handler
 
             const user = getUser(req)
 
-            if (!hasOneOfRoles(user,["admin", "operator"])) {
+            if (!hasOneOfRoles(user,["admin"])) {
                 res.sendStatus(403);
                 return
             }
@@ -39,8 +39,6 @@ export const handleAddProduct = (executable: Inport<Request, Response>): Handler
 
         }
 
-
-
-    };
+    }
 
 }
