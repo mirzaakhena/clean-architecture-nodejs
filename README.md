@@ -1,4 +1,7 @@
 # Clean Architecture NodeJS
+This project inspired from https://github.com/mirzaakhena/gogen 
+
+I am experimenting using the function closure except using a class.
 
 ## Installation
 git clone the repo then install required dependencies
@@ -64,37 +67,58 @@ src
 1. Written with concept clean architecture that promote the separation of concern between logic code and infrastructure code.
 2. Basically just use common frameworks like ExpressJS and TypeORM. And not using complex frameworks like NestJS
 3. All the controller, use case (service in common terms) and gateway written by function closure instead of class
- 
+   ```
+   export const ImplFindOneUserByUsername = (ds: DataSource): FindOneUserByUsername => {
+       return async (ctx: Context, username: string): Promise<User | null> => {
+           return await getManager(ctx, ds.manager).findOneBy(User, {username})
+       }
+   }
+   
+   export const ImplValidatePassword = (): ValidatePassword => {
+       return async (ctx: Context, username: string, password: string): Promise<boolean> => {
+           // TODO: temporary implementation
+           return (username === password)
+       }
+   }
+   
+   export const ImplFindAllUserRoles = (ds: DataSource): FindAllUserRoles => {
+       return async (ctx: Context, username: string): Promise<string[]> => {
+           return (await getManager(ctx, ds.manager).findBy(UserRole, {username})).map(ur => {
+               return ur.role
+           })
+       }
+   }
+   ```
 4. have a login function which generate the jwt token
    ```
-    export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
-    
-        return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    
-            try {
-    
-                const ctx = getContext(handleLogin.name)
-    
-                logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
-    
-                const result = await executable(ctx, req.body)
-    
-                logger.info(ctx, `done with id ${result.user}`)
-    
-                const payload = {data: result.user}
-                const secretKey = process.env.SECRET_KEY as string
-                const expiration = {expiresIn: process.env.TOKEN_EXPIRATION}
-                const token = jwt.sign(payload, secretKey, expiration);
-    
-                res.json({token: token})
-    
-            } catch (err) {
-                next(err)
-            }
-    
-        };
-    
-    }   
+   export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
+   
+       return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+   
+           try {
+   
+               const ctx = getContext(handleLogin.name)
+   
+               logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
+   
+               const result = await executable(ctx, req.body)
+   
+               logger.info(ctx, `done with id ${result.user}`)
+   
+               const payload = {data: result.user}
+               const secretKey = process.env.SECRET_KEY as string
+               const expiration = {expiresIn: process.env.TOKEN_EXPIRATION}
+               const token = jwt.sign(payload, secretKey, expiration);
+   
+               res.json({token: token})
+   
+           } catch (err) {
+               next(err)
+           }
+   
+       };
+   
+   }
    ```
 5. have a middleware to intercept and check the token
    ```
@@ -129,16 +153,14 @@ src
        }
    
    }   
-   ```   
-
+   ```
 6. have a simple user access control verified on every method
     ```
-    if (!hasOneOfRoles(user,["admin"])) {
+    if (!hasOneOfRoles(user,["admin", "operator"])) {
         res.sendStatus(403);
         return
     }
-    ```   
-
+    ```
 7. have sample transactions database handling 
     ```
     export const executeCreateOrder = (o: Outport): Inport<Request, Response> => {
@@ -172,7 +194,27 @@ src
         }
     }
     ```
-
+8. Use manual and simple dependency injection
+   ```
+   const m = getDataSource()
+   
+   const findOneUserByUsername = ImplFindOneUserByUsername(m)
+   const validatePassword = ImplValidatePassword()
+   
+   const withTrx = ImplWithTransaction(m)
+   const saveOrder = ImplSaveOrder(m)
+   const saveProduct = ImplSaveProduct(m)
+   const findAllProducts = ImplFindAllProducts(m)
+   const findAllUserRoles = ImplFindAllUserRoles(m)
+   
+   const router = express.Router()
+   
+   router.use("/api/v1", handleAuthorization());
+   router.post("/api/v1/products", handleAddProduct(executeAddProduct([saveProduct])))
+   router.get("/api/v1/products", handleGetAllProduct(executeGetAllProduct([findAllProducts])))
+   router.post("/api/v1/order", handleCreateOrder(executeCreateOrder([saveProduct, saveOrder, withTrx])))
+   router.post("/login", handleLogin(executeLogin([findOneUserByUsername, validatePassword, findAllUserRoles])))
+   ```
 
 
 

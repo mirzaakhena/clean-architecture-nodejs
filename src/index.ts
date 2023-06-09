@@ -36,13 +36,9 @@ const bootstrap = () => {
     const router = express.Router()
 
     router.use("/api/v1", handleAuthorization());
-
     router.post("/api/v1/products", handleAddProduct(executeAddProduct([saveProduct])))
-
     router.get("/api/v1/products", handleGetAllProduct(executeGetAllProduct([findAllProducts])))
-
     router.post("/api/v1/order", handleCreateOrder(executeCreateOrder([saveProduct, saveOrder, withTrx])))
-
     router.post("/login", handleLogin(executeLogin([findOneUserByUsername, validatePassword, findAllUserRoles])))
 
     runServer(router)

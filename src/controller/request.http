@@ -1,11 +1,20 @@
 ###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "joni",
+  "password": "joni"
+}
+
+###
 POST http://localhost:3000/api/v1/products
 Content-Type: application/json
 Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoidGlrYSIsIm5hbWUiOiJ0aWthIiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTY4NjI3NDM0MSwiZXhwIjoxNjg2Mjc3OTQxfQ.q0WUGY0V9glX3wab7l5Q6vDm9Eb9SGRcB7SC7blSBXU
 
 {
-  "name": "Aaa",
-  "price": 444
+  "name": "apple",
+  "price": 15000
 }
 
 ###
@@ -20,15 +29,7 @@ Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW
 
 
 {
-  "name": "Aaa",
-  "price": 90
+  "name": "durian",
+  "price": 90000
 }
 
-###
-POST http://localhost:3000/login
-Content-Type: application/json
-
-{
-  "username": "tika",
-  "password": "tika"
-}
