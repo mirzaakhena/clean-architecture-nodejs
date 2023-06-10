@@ -1,0 +1,34 @@
+###
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "username": "joni",
+  "password": "joni"
+}
+
+###
+POST {{url}}/api/v1/products
+Content-Type: application/json
+Authorization: Basic {{token}}
+
+{
+  "name": "apple",
+  "price": 15000
+}
+
+###
+GET {{url}}/api/v1/products
+Content-Type: application/json
+Authorization: Basic {{token}}
+
+###
+POST {{url}}/api/v1/order
+Content-Type: application/json
+Authorization: Basic {{token}}
+
+{
+  "name": "durian",
+  "price": 90000
+}
+
