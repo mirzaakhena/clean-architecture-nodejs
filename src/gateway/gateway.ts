@@ -29,7 +29,7 @@ export const getDataSource = (): DataSource => {
 
     dataSource.initialize()
         .then(() => {
-            logger.info(ctx, `tables = ${entities}. database is connected...`)
+            logger.info(ctx, `database is connected...`)
             insertSampleData(dataSource)
         })
         .catch((err) => logger.info(ctx, `problem in database connection : ${(err as Error).message}`))
