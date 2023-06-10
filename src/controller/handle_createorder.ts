@@ -10,9 +10,9 @@ export const handleCreateOrder = (executable: Inport<Request, Response>): Handle
 
     return async (req: DecodedRequest, res: express.Response, next: express.NextFunction) => {
 
-        try {
+        const ctx = getContext(handleCreateOrder.name)
 
-            const ctx = getContext(handleCreateOrder.name)
+        try {
 
             const user = getUser(req)
 
@@ -21,7 +21,7 @@ export const handleCreateOrder = (executable: Inport<Request, Response>): Handle
                 return
             }
 
-            logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
+            logger.info(ctx, `handleCreateOrder called with ${JSON.stringify(req.body)}`)
 
             const result = await executable(ctx, {
                 id: randomUUID(),
@@ -30,11 +30,12 @@ export const handleCreateOrder = (executable: Inport<Request, Response>): Handle
                 username: user.username,
             })
 
-            logger.info(ctx, `done`)
+            logger.info(ctx, `handleCreateOrder done with orderId ${result.orderId} and productId ${result.productId}`)
 
             res.json(result)
 
         } catch (err) {
+            logger.error(ctx, `handleCreateOrder error`)
             next(err)
         }
 

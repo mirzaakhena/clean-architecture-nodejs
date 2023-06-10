@@ -1,6 +1,7 @@
 import express from "express";
 import {LogicError} from "../model/entity/error";
 import {JsonWebTokenError, NotBeforeError, TokenExpiredError} from "jsonwebtoken";
+import {logger} from "../utility/logger";
 
 export const handleError = (err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
 

@@ -9,9 +9,9 @@ import {HandlerFuncWithNext} from "./controller";
 export const handleGetAllProduct = (executable: Inport<Request, Response>): HandlerFuncWithNext => {
     return async (req: DecodedRequest, res: express.Response, next: express.NextFunction) => {
 
-        try {
+        const ctx = getContext(handleGetAllProduct.name)
 
-            const ctx = getContext(handleGetAllProduct.name)
+        try {
 
             const user = getUser(req)
 
@@ -22,11 +22,12 @@ export const handleGetAllProduct = (executable: Inport<Request, Response>): Hand
 
             const result = await executable(ctx, {})
 
-            logger.info(ctx, ` called by ${user.username} result count : ${result.count}`)
+            logger.info(ctx, `handleGetAllProduct called by ${user.username} result count : ${result.count}`)
 
             res.json(result)
 
         } catch (err) {
+            logger.error(ctx, `handleGetAllProduct error`)
             next(err)
         }
 

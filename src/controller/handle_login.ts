@@ -10,9 +10,9 @@ export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncW
 
     return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
-        try {
+        const ctx = getContext(handleLogin.name)
 
-            const ctx = getContext(handleLogin.name)
+        try {
 
             logger.info(ctx, `called with ${JSON.stringify(req.body)}`)
 
@@ -28,6 +28,7 @@ export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncW
             res.send(token)
 
         } catch (err) {
+            logger.error(ctx, `handleLogin error`)
             next(err)
         }
 
