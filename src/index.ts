@@ -54,7 +54,8 @@ if (!process.env.SERVER_PORT) {
         "DATABASE_NAME=\n" +
         "DATABASE_USER=\n" +
         "DATABASE_PASSWORD=\n" +
-        "SECRET_KEY=\n"
+        "SECRET_KEY=\n" +
+        "TOKEN_EXPIRATION=\n"
 
     console.log(message)
     process.exit(1);
