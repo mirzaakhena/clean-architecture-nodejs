@@ -9,6 +9,23 @@ export interface Request {
     password: string
 }
 
+// TODO i dont like this, because we have to write the fields from Request interface multiple
+//  the better solution is, write the Request directly as a class instead of using interface
+export class RequestValidator implements Request {
+
+    password: string;
+    username: string;
+
+    constructor(username: string, password: string,) {
+        this.username = username;
+        this.password = password;
+        if (!this.username || !this.password) {
+            throw new LogicError('missing username or password')
+        }
+    }
+
+}
+
 export interface Response {
     user: User
 }
@@ -28,6 +45,10 @@ export const executeLogin = (o: Outport): Inport<Request, Response> => {
     ] = o
 
     return async (ctx: Context, req: Request): Promise<Response> => {
+
+        // if (!req.username || !req.password) {
+        //     throw new LogicError('missing username or password')
+        // }
 
         const user = await findOneUserByUsername(ctx, req.username)
         if (!user) {
