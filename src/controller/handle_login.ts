@@ -24,7 +24,7 @@ export const handleLogin = (executable: Inport<Request, Response>): HandlerFuncW
             const expiration = {expiresIn: process.env.TOKEN_EXPIRATION}
             const token = jwt.sign(payload, secretKey, expiration);
 
-            res.send(token)
+            res.send({token: token})
 
             logger.info(ctx, `handleLogin called`)
 
